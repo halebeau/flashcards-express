@@ -15,5 +15,5 @@ app.get('/card', (req, res) => {
 // /sandbox
 
 app.listen(3000, () => {
-  console.log('The app is running on localhost:3000!')
+  console.log('App is running on localhost:3000!')
 })
