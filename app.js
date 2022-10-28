@@ -12,7 +12,13 @@ app.get('/card', (req, res) => {
   res.render('card', { prompt: "Who is buried in Grant's tomb?" })
 })
 
-// /sandbox
+app.get('/hello', (req, res) => {
+  res.render('hello')
+})
+
+app.post('/hello', (req, res) => {
+  res.render('hello')
+})
 
 app.listen(3000, () => {
   console.log('App is running on localhost:3000!')
