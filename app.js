@@ -1,6 +1,5 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-const Parser = require("cookie-parser")
 const cookieParser = require("cookie-parser")
 
 const app = express()
@@ -13,13 +12,13 @@ app.set("view engine", "pug")
 app.get("/", (req, res) => {
   const name = req.cookies.username
   if (name) {
-    res.render("index", { name: name })
+    res.render("index", { name })
   } else {
     res.redirect("/hello")
   }
 })
 
-app.get("/card", (req, res) => {
+app.get("/cards", (req, res) => {
   res.render("card", { prompt: "Who is buried in Grant's tomb?" })
 })
 
@@ -42,6 +41,18 @@ app.post("/goodbye", (req, res) => {
   res.redirect("/hello")
 })
 
+app.use((req, res, next) => {
+  const err = new Error("Not Found")
+  err.status = 404
+  next(err)
+})
+
+app.use((err, req, res, next) => {
+  res.locals.error = err
+  res.status(err.status)
+  res.render("error")
+})
+
 app.listen(3000, () => {
-  console.log("App is running on localhost:3000!")
+  console.log("App running on localhost:3000!")
 })
